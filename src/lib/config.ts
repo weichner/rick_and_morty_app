@@ -30,7 +30,7 @@ export const CONFIG = {
 } as const;
 
 // API Endpoints helper functions
-export const getApiUrl = (endpoint: string, params?: Record<string, any>) => {
+export const getApiUrl = (endpoint: string, params?: Record<string, string | number | boolean | undefined>) => {
   const url = new URL(`${CONFIG.API.BASE_URL}${endpoint}`);
 
   if (params) {

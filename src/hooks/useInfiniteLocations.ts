@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useCallback, useRef, useEffect } from 'react';
-import { Location, ApiResponse, LocationFilters } from '@/types';
+
 import { fetchLocations } from '@/lib/api';
+import { Location, ApiResponse, LocationFilters } from '@/types';
 
 interface UseInfiniteLocationsReturn {
   locations: Location[];

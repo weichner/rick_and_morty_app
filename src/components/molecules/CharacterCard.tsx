@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { Character } from "@/types";
+
 import { CharacterImage, StatusBadge } from "@/components/atoms";
+import { Character } from "@/types";
 
 interface CharacterCardProps {
   character: Character;

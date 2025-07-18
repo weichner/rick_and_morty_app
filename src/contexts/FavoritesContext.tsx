@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState, useEffect } from "react";
+
 import { STORAGE_KEYS } from "@/lib/config";
 
 /**
@@ -22,7 +23,7 @@ interface FavoritesContextType {
  * Props for the FavoritesProvider component
  */
 interface FavoritesProviderProps {
-  children: any;
+  children: React.ReactNode;
   initialFavorites?: number[];
 }
 

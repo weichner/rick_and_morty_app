@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Character, Episode } from "@/types";
+import { useState, useEffect, useCallback } from "react";
+
 import { fetchCharacter, fetchEpisodeByUrl } from "@/lib/api";
+import { Character, Episode } from "@/types";
 
 /**
  * Return type for the useCharacterDetails hook
@@ -67,7 +68,7 @@ export const useCharacterDetails = (characterId: string): UseCharacterDetailsRet
    * @async
    * @function fetchCharacterDetails
    */
-  const fetchCharacterDetails = async () => {
+  const fetchCharacterDetails = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -96,7 +97,7 @@ export const useCharacterDetails = (characterId: string): UseCharacterDetailsRet
     } finally {
       setLoading(false);
     }
-  };
+  }, [characterId]);
 
   /**
    * Public refetch function for manual data reload
@@ -126,7 +127,7 @@ export const useCharacterDetails = (characterId: string): UseCharacterDetailsRet
     if (characterId) {
       fetchCharacterDetails();
     }
-  }, [characterId]); // Re-run when characterId changes
+  }, [characterId, fetchCharacterDetails]); // Re-run when characterId changes
 
   return {
     character,

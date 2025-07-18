@@ -1,5 +1,5 @@
-import { Episode } from "@/types";
 import { EpisodeCard } from "@/components/molecules";
+import { Episode } from "@/types";
 
 interface EpisodeGridProps {
   episodes: Episode[];
@@ -43,7 +43,7 @@ export const EpisodeGrid: React.FC<EpisodeGridProps> = ({
           No Episodes Found
         </h3>
         <p className="text-muted-foreground">
-          This character doesn't appear in any episodes.
+          This character doesn&apos;t appear in any episodes.
         </p>
       </div>
     );

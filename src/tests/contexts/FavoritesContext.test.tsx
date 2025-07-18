@@ -1,7 +1,8 @@
-import React from 'react';
 import { render, screen, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
+import React from 'react';
+
 import { FavoritesProvider, useFavorites } from '../../contexts/FavoritesContext';
 
 // Mock localStorage

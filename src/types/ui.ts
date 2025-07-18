@@ -3,7 +3,7 @@
 export interface ButtonProps {
   variant?: "primary" | "secondary" | "outline" | "ghost";
   size?: "sm" | "md" | "lg";
-  children: any;
+  children: React.ReactNode;
   onClick?: () => void;
   disabled?: boolean;
   loading?: boolean;
@@ -23,7 +23,7 @@ export interface InputProps {
 }
 
 export interface CardProps {
-  children: any;
+  children: React.ReactNode;
   className?: string;
   onClick?: () => void;
   hover?: boolean;
@@ -31,7 +31,7 @@ export interface CardProps {
 
 export interface BadgeProps {
   variant?: "default" | "success" | "error" | "warning" | "info";
-  children: any;
+  children: React.ReactNode;
   className?: string;
 }
 

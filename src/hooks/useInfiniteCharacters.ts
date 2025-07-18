@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useCallback, useRef, useEffect } from 'react';
-import { Character, ApiResponse, CharacterFilters } from '@/types';
+
 import { fetchCharacters } from '@/lib/api';
+import { Character, ApiResponse, CharacterFilters } from '@/types';
 
 /**
  * Return type for the useInfiniteCharacters hook

@@ -1,9 +1,10 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Character } from "@/types";
-import { fetchCharactersByUrls } from "@/lib/api";
+
 import { CharacterImage } from "@/components/atoms";
+import { fetchCharactersByUrls } from "@/lib/api";
+import { Character } from "@/types";
 
 interface ResidentAvatarsProps {
   residentUrls: string[];

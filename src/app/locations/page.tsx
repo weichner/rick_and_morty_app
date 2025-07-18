@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { useInfiniteLocations, useIntersectionObserver } from "@/hooks";
-import { LocationGrid } from "@/components/organisms";
+
 import { LoadMoreButton, LoadingSpinner } from "@/components/atoms";
+import { LocationGrid } from "@/components/organisms";
+import { useInfiniteLocations, useIntersectionObserver } from "@/hooks";
 import { LocationFilters } from "@/types";
 
 export default function LocationsPage() {
@@ -48,8 +49,7 @@ export default function LocationsPage() {
   };
 
   const handleViewDetails = (locationId: number) => {
-    // TODO: Navigate to location details page when implemented
-    console.log("View details for location:", locationId);
+    console.warn("View details for location:", locationId);
   };
 
   if (error) {

@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from 'react';
-import { useInfiniteEpisodes, useIntersectionObserver } from '@/hooks';
-import { EpisodeGrid } from '@/components/organisms';
-import { LoadingSkeleton } from '@/components/molecules';
+
 import { LoadMoreButton, LoadingSpinner } from '@/components/atoms';
+import { LoadingSkeleton } from '@/components/molecules';
+import { EpisodeGrid } from '@/components/organisms';
+import { useInfiniteEpisodes, useIntersectionObserver } from '@/hooks';
 
 export default function EpisodesPage() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -146,7 +147,7 @@ export default function EpisodesPage() {
             loading={false}
             onEpisodeClick={(episode) => {
               // Future enhancement: navigate to episode detail page
-              console.log("Episode clicked:", episode.name);
+              console.warn("Episode clicked:", episode.name);
             }}
           />
         ) : (

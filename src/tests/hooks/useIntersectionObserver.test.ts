@@ -1,5 +1,6 @@
 import { renderHook } from '@testing-library/react';
 import '@testing-library/jest-dom';
+
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 
 // Mock IntersectionObserver

@@ -1,11 +1,11 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
-import { useFavoriteCharacters } from "@/hooks";
+
+import { CharacterCard, LoadingSkeleton, ErrorMessage } from "@/components/molecules";
 import { useFavorites } from "@/contexts/FavoritesContext";
-import { CharacterCard } from "@/components/molecules";
-import { LoadingSkeleton, ErrorMessage } from "@/components/molecules";
-import { Character } from "@/types";
+import { useFavoriteCharacters } from "@/hooks";
 
 type SortOption = "name" | "species" | "status" | "origin";
 
@@ -98,12 +98,12 @@ export default function FavoritesPage() {
           <p className="text-muted-foreground mb-6 max-w-md mx-auto">
             Start exploring characters and add them to your favorites to see them here!
           </p>
-          <a
+          <Link
             href="/characters"
             className="inline-flex px-6 py-3 bg-[#97CE4C] text-black rounded-lg hover:bg-[#97CE4C]/90 transition-colors"
           >
             Browse Characters
-          </a>
+          </Link>
         </div>
       </div>
     );

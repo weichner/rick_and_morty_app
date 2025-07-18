@@ -1,8 +1,9 @@
 "use client";
 
 import { createContext, useContext, useState, useEffect } from "react";
-import { CharacterFilters, EpisodeFilters, LocationFilters } from "@/types";
+
 import { STORAGE_KEYS } from "@/lib/config";
+import { CharacterFilters, EpisodeFilters, LocationFilters } from "@/types";
 
 interface FilterContextType {
   characterFilters: CharacterFilters;
@@ -20,7 +21,7 @@ interface FilterContextType {
 const FilterContext = createContext<FilterContextType | undefined>(undefined);
 
 interface FilterProviderProps {
-  children: any;
+  children: React.ReactNode;
 }
 
 const defaultCharacterFilters: CharacterFilters = {

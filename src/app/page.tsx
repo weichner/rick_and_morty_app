@@ -1,22 +1,21 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Character } from "@/types";
+import Link from "next/link";
+import { useState, useEffect, useMemo } from "react";
+
 import { fetchMultipleCharacters } from "@/lib/api";
 
 export default function HomePage() {
-  const [characters, setCharacters] = useState<Character[]>([]);
   const [loading, setLoading] = useState(true);
 
   // Fetch 4 iconic characters for the cards
   // Rick (1), Morty (2), Summer (3), Beth (4)
-  const characterIds = [1, 2, 3, 4];
+  const characterIds = useMemo(() => [1, 2, 3, 4], []);
 
   useEffect(() => {
     const loadCharacters = async () => {
       try {
-        const charactersData = await fetchMultipleCharacters(characterIds);
-        setCharacters(charactersData);
+        await fetchMultipleCharacters(characterIds);
       } catch (error) {
         console.error("Failed to load characters:", error);
       } finally {
@@ -25,11 +24,7 @@ export default function HomePage() {
     };
 
     loadCharacters();
-  }, []);
-
-  const getCharacterForCard = (index: number): Character | null => {
-    return characters[index] || null;
-  };
+  }, [characterIds]);
 
   return (
     <div className="relative">
@@ -72,18 +67,18 @@ export default function HomePage() {
             from the hit animated series Rick and Morty.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <a 
+            <Link 
               href="/characters"
               className="px-5 py-2.5 md:px-6 md:py-3 bg-[#f0e14a] text-black font-semibold rounded-lg hover:bg-[#f0e14a]/90 transition-colors shadow-lg"
             >
               Explore Characters
-            </a>
-            <a 
+            </Link>
+            <Link 
               href="/episodes"
               className="px-5 py-2.5 md:px-6 md:py-3 border-2 border-[#97CE4C] text-[#97CE4C] font-semibold rounded-lg hover:bg-[#97CE4C] hover:text-black transition-colors backdrop-blur-sm"
             >
               Browse Episodes
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -119,12 +114,12 @@ export default function HomePage() {
                 <p className="text-muted-foreground mb-4">
                   Meet all 800+ characters from across dimensions
                 </p>
-                <a 
+                <Link 
                   href="/characters"
                   className="inline-block px-4 py-2 bg-[#f0e14a] text-gray-900 font-bold rounded-lg hover:bg-[#f0e14a]/90 transition-colors"
                 >
                   View All
-                </a>
+                </Link>
               </div>
             </div>
 
@@ -155,12 +150,12 @@ export default function HomePage() {
                 <p className="text-muted-foreground mb-4">
                   Discover episodes from all seasons of the show
                 </p>
-                <a 
+                <Link 
                   href="/episodes"
                   className="inline-block px-4 py-2 bg-[#f0e14a] text-gray-900 font-bold rounded-lg hover:bg-[#f0e14a]/90 transition-colors"
                 >
                   Watch Guide
-                </a>
+                </Link>
               </div>
             </div>
 
@@ -191,12 +186,12 @@ export default function HomePage() {
                 <p className="text-muted-foreground mb-4">
                   Travel through dimensions and alien worlds
                 </p>
-                <a 
+                <Link 
                   href="/locations"
                   className="inline-block px-4 py-2 bg-[#f0e14a] text-gray-900 font-bold rounded-lg hover:bg-[#f0e14a]/90 transition-colors"
                 >
                   Explore
-                </a>
+                </Link>
               </div>
             </div>
 
@@ -227,12 +222,12 @@ export default function HomePage() {
                 <p className="text-muted-foreground mb-4">
                   Save your favorite characters and episodes from across the multiverse
                 </p>
-                <a 
+                <Link 
                   href="/favorites"
                   className="inline-block px-4 py-2 bg-[#f0e14a] text-gray-900 font-bold rounded-lg hover:bg-[#f0e14a]/90 transition-colors"
                 >
                   My List
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -249,12 +244,12 @@ export default function HomePage() {
             Jump into the chaotic world of Rick and Morty. Browse characters, 
             discover episodes, and save your favorites!
           </p>
-          <a 
+          <Link 
             href="/characters"
             className="inline-block px-8 py-4 bg-[#97CE4C] text-black font-semibold rounded-lg hover:bg-[#97CE4C]/90 transition-colors"
           >
             Start Exploring
-          </a>
+          </Link>
         </div>
       </section>
     </div>

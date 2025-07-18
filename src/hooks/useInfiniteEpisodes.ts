@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useCallback, useRef, useEffect } from 'react';
-import { Episode, ApiResponse, EpisodeFilters } from '@/types';
+
 import { fetchEpisodes } from '@/lib/api';
+import { Episode, ApiResponse, EpisodeFilters } from '@/types';
 
 interface UseInfiniteEpisodesReturn {
   episodes: Episode[];

@@ -2,7 +2,6 @@
 // This module provides a comprehensive interface to the Rick and Morty API
 // with proper error handling, type safety, and optimized data fetching patterns
 
-import { CONFIG, getApiUrl } from "./config";
 import {
   Character,
   Episode,
@@ -11,8 +10,24 @@ import {
   CharacterFilters,
   EpisodeFilters,
   LocationFilters,
-  ApiError,
 } from "@/types";
+
+import { CONFIG, getApiUrl } from "./config";
+
+/**
+ * Converts filter objects to API-compatible parameter objects
+ */
+const convertFiltersToParams = (filters: CharacterFilters | EpisodeFilters | LocationFilters): Record<string, string | number | boolean | undefined> => {
+  const params: Record<string, string | number | boolean | undefined> = {};
+  
+  Object.entries(filters).forEach(([key, value]) => {
+    if (value !== undefined && value !== null && value !== '') {
+      params[key] = value;
+    }
+  });
+  
+  return params;
+};
 
 /**
  * Extracts character ID from a Rick and Morty API character URL
@@ -105,7 +120,7 @@ const apiCall = async <T>(url: string): Promise<T> => {
 export const fetchCharacters = async (
   filters: CharacterFilters = {}
 ): Promise<ApiResponse<Character>> => {
-  const url = getApiUrl(CONFIG.API.ENDPOINTS.CHARACTERS, filters);
+  const url = getApiUrl(CONFIG.API.ENDPOINTS.CHARACTERS, convertFiltersToParams(filters));
   return apiCall<ApiResponse<Character>>(url);
 };
 
@@ -176,7 +191,7 @@ export const fetchCharactersByUrls = async (
 export const fetchEpisodes = async (
   filters: EpisodeFilters = {}
 ): Promise<ApiResponse<Episode>> => {
-  const url = getApiUrl(CONFIG.API.ENDPOINTS.EPISODES, filters);
+  const url = getApiUrl(CONFIG.API.ENDPOINTS.EPISODES, convertFiltersToParams(filters));
   return apiCall<ApiResponse<Episode>>(url);
 };
 
@@ -219,7 +234,7 @@ export const fetchEpisodeByUrl = async (
 export const fetchLocations = async (
   filters: LocationFilters = {}
 ): Promise<ApiResponse<Location>> => {
-  const url = getApiUrl(CONFIG.API.ENDPOINTS.LOCATIONS, filters);
+  const url = getApiUrl(CONFIG.API.ENDPOINTS.LOCATIONS, convertFiltersToParams(filters));
   return apiCall<ApiResponse<Location>>(url);
 };
 

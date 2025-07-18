@@ -1,5 +1,7 @@
 import React from "react";
+
 import { Location } from "@/types";
+
 import { ResidentAvatars } from "./ResidentAvatars";
 
 interface LocationCardProps {

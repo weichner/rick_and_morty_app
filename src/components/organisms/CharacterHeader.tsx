@@ -1,6 +1,6 @@
-import { Character } from "@/types";
 import { CharacterImage, FavoriteButton } from "@/components/atoms";
 import { CharacterInfo } from "@/components/molecules";
+import { Character } from "@/types";
 
 interface CharacterHeaderProps {
   character: Character;

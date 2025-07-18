@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+
 import { useFavorites } from "@/contexts/FavoritesContext";
 
 interface FavoritesCounterProps {

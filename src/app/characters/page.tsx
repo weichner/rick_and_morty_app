@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from 'react';
-import { useInfiniteCharacters, useIntersectionObserver } from '@/hooks';
-import { useFavorites } from '@/contexts/FavoritesContext';
-import { CharacterCard } from '@/components/molecules';
+
 import { LoadMoreButton, LoadingSpinner } from '@/components/atoms';
+import { CharacterCard } from '@/components/molecules';
+import { useFavorites } from '@/contexts/FavoritesContext';
+import { useInfiniteCharacters, useIntersectionObserver } from '@/hooks';
 import { Character } from '@/types';
 
 // Note: metadata export doesn't work in client components, so we'll handle SEO differently

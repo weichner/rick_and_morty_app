@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import { Character } from "@/types";
-import { fetchMultipleCharacters } from "@/lib/api";
+
 import { useFavorites } from "@/contexts/FavoritesContext";
+import { fetchMultipleCharacters } from "@/lib/api";
+import { Character } from "@/types";
 
 export const useFavoriteCharacters = () => {
   const { favorites } = useFavorites();

@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
 import { Inter, Dokdo } from 'next/font/google';
+
 import './globals.css';
+import { MobileNavigation } from '@/components/organisms';
 import { FavoritesProvider } from '@/contexts/FavoritesContext';
 import { FilterProvider } from '@/contexts/FilterContext';
-import { MobileNavigation } from '@/components/organisms';
 
 const inter = Inter({
   subsets: ['latin'],

@@ -1,7 +1,7 @@
 import React from "react";
+
+import { LocationCard, ErrorMessage } from "@/components/molecules";
 import { Location } from "@/types";
-import { LocationCard } from "@/components/molecules";
-import { LoadingSkeleton, ErrorMessage } from "@/components/molecules";
 
 interface LocationGridProps {
   locations: Location[];

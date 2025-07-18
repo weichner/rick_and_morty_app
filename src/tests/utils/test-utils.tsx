@@ -1,10 +1,11 @@
 // Testing utilities for component testing
-import React, { ReactElement } from 'react';
 import { render, RenderOptions } from '@testing-library/react';
+import { ReactElement } from 'react';
 
 // Simple custom render for testing without complex providers
 interface CustomRenderOptions extends Omit<RenderOptions, 'wrapper'> {
   // Add any future provider props here
+  initialProps?: Record<string, unknown>;
 }
 
 const customRender = (
@@ -90,7 +91,7 @@ export const mockApiResponse = {
 };
 
 // Helper functions for testing
-export const createMockFetch = (data: any) => {
+export const createMockFetch = (data: unknown) => {
   return jest.fn().mockResolvedValue({
     ok: true,
     json: async () => data,

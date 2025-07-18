@@ -1,5 +1,5 @@
-import { Character } from "@/types";
 import { StatusBadge } from "@/components/atoms";
+import { Character } from "@/types";
 
 interface CharacterInfoProps {
   character: Character;

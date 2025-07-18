@@ -1,10 +1,11 @@
 "use client";
 
 import { use } from "react";
-import { useCharacterDetails } from "@/hooks";
-import { useFavorites } from "@/contexts/FavoritesContext";
-import { CharacterHeader, EpisodeGrid } from "@/components/organisms";
+
 import { LoadingSkeleton, ErrorMessage } from "@/components/molecules";
+import { CharacterHeader, EpisodeGrid } from "@/components/organisms";
+import { useFavorites } from "@/contexts/FavoritesContext";
+import { useCharacterDetails } from "@/hooks";
 
 interface CharacterDetailPageProps {
   params: Promise<{
@@ -99,7 +100,7 @@ export default function CharacterDetailPage({
             loading={false}
             onEpisodeClick={(episode) => {
               // Future enhancement: navigate to episode detail page
-              console.log("Episode clicked:", episode.name);
+              console.warn("Episode clicked:", episode.name);
             }}
           />
         </div>
