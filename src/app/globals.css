@@ -1,0 +1,265 @@
+@import 'tailwindcss';
+
+:root {
+  /* Rick and Morty Theme Colors */
+  --background: #1a1a1a;
+  --foreground: #ffffff;
+  --card: #2a2a2a;
+  --card-foreground: #ffffff;
+  --primary: #00b8d4;
+  --primary-foreground: #ffffff;
+  --secondary: #97ce4c;
+  --secondary-foreground: #000000;
+  --accent: #ff6b35;
+  --accent-foreground: #ffffff;
+  --muted: #404040;
+  --muted-foreground: #a1a1aa;
+  --border: #404040;
+  --input: #2a2a2a;
+  --ring: #00b8d4;
+  --radius: 0.5rem;
+  
+  /* Rick and Morty Character Colors */
+  --rick-blue: #00b8d4;
+  --morty-yellow: #f9c23c;
+  --portal-green: #97ce4c;
+  --space-purple: #6366f1;
+  --danger-red: #ef4444;
+  --alive-green: #22c55e;
+  --dead-red: #ef4444;
+  --unknown-gray: #6b7280;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  
+  /* Custom Rick and Morty Colors */
+  --color-rick-blue: var(--rick-blue);
+  --color-morty-yellow: var(--morty-yellow);
+  --color-portal-green: var(--portal-green);
+  --color-space-purple: var(--space-purple);
+  --color-danger-red: var(--danger-red);
+  --color-alive-green: var(--alive-green);
+  --color-dead-red: var(--dead-red);
+  --color-unknown-gray: var(--unknown-gray);
+  
+  --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+  --font-sansation: 'Sansation', ui-sans-serif, system-ui, sans-serif;
+  --font-dokdo: var(--font-dokdo), cursive;
+  
+  --radius-sm: 0.125rem;
+  --radius: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --background: #ffffff;
+    --foreground: #0a0a0a;
+    --card: #ffffff;
+    --card-foreground: #0a0a0a;
+    --muted: #f1f5f9;
+    --muted-foreground: #64748b;
+    --border: #e2e8f0;
+    --input: #ffffff;
+  }
+}
+
+* {
+  border-color: var(--border);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  line-height: 1.5;
+}
+
+/* Font utilities */
+.font-dokdo {
+  font-family: var(--font-dokdo);
+}
+
+/* Rick and Morty specific styles */
+.rick-gradient {
+  background: linear-gradient(135deg, var(--rick-blue), var(--space-purple));
+}
+
+.morty-gradient {
+  background: linear-gradient(135deg, var(--morty-yellow), var(--portal-green));
+}
+
+.portal-glow {
+  box-shadow: 0 0 20px var(--portal-green);
+}
+
+.status-alive {
+  color: var(--alive-green);
+}
+
+.status-dead {
+  color: var(--dead-red);
+}
+
+.status-unknown {
+  color: var(--unknown-gray);
+}
+
+/* 3D Flip Card Effects */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* Animation classes for smoother transitions */
+.flip-card-inner {
+  transition: transform 0.7s ease-in-out;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+/* Floating animations for particles */
+@keyframes float-slow {
+  0%, 100% { 
+    transform: translateY(0px) translateX(0px); 
+  }
+  25% { 
+    transform: translateY(-10px) translateX(5px); 
+  }
+  50% { 
+    transform: translateY(-5px) translateX(-3px); 
+  }
+  75% { 
+    transform: translateY(-15px) translateX(2px); 
+  }
+}
+
+@keyframes float-medium {
+  0%, 100% { 
+    transform: translateY(0px) translateX(0px) scale(1); 
+  }
+  33% { 
+    transform: translateY(-8px) translateX(-4px) scale(1.1); 
+  }
+  66% { 
+    transform: translateY(-12px) translateX(6px) scale(0.9); 
+  }
+}
+
+@keyframes float-fast {
+  0%, 100% { 
+    transform: translateY(0px) translateX(0px) rotate(0deg); 
+  }
+  20% { 
+    transform: translateY(-6px) translateX(3px) rotate(5deg); 
+  }
+  40% { 
+    transform: translateY(-3px) translateX(-5px) rotate(-3deg); 
+  }
+  60% { 
+    transform: translateY(-9px) translateX(2px) rotate(2deg); 
+  }
+  80% { 
+    transform: translateY(-4px) translateX(-2px) rotate(-4deg); 
+  }
+}
+
+.animate-float-slow {
+  animation: float-slow 8s ease-in-out infinite;
+}
+
+.animate-float-medium {
+  animation: float-medium 6s ease-in-out infinite;
+}
+
+.animate-float-fast {
+  animation: float-fast 4s ease-in-out infinite;
+}
+
+/* Responsive background image scaling */
+@media (max-width: 640px) {
+  .hero-bg {
+    transform: scale(1.1) !important;
+    background-position: center top !important;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .hero-bg {
+    transform: scale(1.08) !important;
+    background-position: center center !important;
+  }
+}
+
+@media (min-width: 1025px) {
+  .hero-bg {
+    transform: scale(1.05) !important;
+    background-position: center center !important;
+  }
+}
+
+@media (min-width: 1440px) {
+  .hero-bg {
+    transform: scale(1.02) !important;
+    background-position: center center !important;
+  }
+}
+
+/* Sansation Font for Titles */
+h1, h2, h3, h4, h5, h6,
+.title,
+.heading {
+  font-family: var(--font-sansation);
+  font-weight: 400;
+}
+
+h1.bold, h2.bold, h3.bold, h4.bold, h5.bold, h6.bold,
+.title.bold,
+.heading.bold,
+.font-bold h1, .font-bold h2, .font-bold h3, .font-bold h4, .font-bold h5, .font-bold h6 {
+  font-family: var(--font-sansation);
+  font-weight: 700;
+}
+
+/* Utility classes for Sansation font */
+.font-sansation {
+  font-family: var(--font-sansation);
+}
+
+.font-sansation-bold {
+  font-family: var(--font-sansation);
+  font-weight: 700;
+}
