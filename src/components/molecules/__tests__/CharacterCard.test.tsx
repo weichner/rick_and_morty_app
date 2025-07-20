@@ -1,14 +1,18 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 
 import { CharacterCard } from '../CharacterCard';
 
-// Mock Next.js Link component
+// Mock Next.js Link
 jest.mock('next/link', () => {
-  return function MockLink({ children, href }: { children: React.ReactNode; href: string }) {
-    return <a href={href}>{children}</a>;
-  };
+  const MockLink = ({ children, href, ...props }: { children: React.ReactNode; href: string; [key: string]: unknown }) => (
+    <a href={href} {...props}>
+      {children}
+    </a>
+  );
+  MockLink.displayName = 'MockLink';
+  return MockLink;
 });
 
 const mockCharacter = {
@@ -116,5 +120,177 @@ describe('CharacterCard', () => {
     
     expect(defaultProps.onFavoriteToggle).toHaveBeenCalledWith(mockCharacter.id);
     expect(mockClickHandler).not.toHaveBeenCalled();
+  });
+
+  describe('Desktop (non-touch) functionality', () => {
+    beforeEach(() => {
+      // Mock non-touch device
+      delete (window as unknown as { ontouchstart?: unknown }).ontouchstart;
+      Object.defineProperty(navigator, 'maxTouchPoints', {
+        writable: true,
+        value: 0,
+      });
+    });
+
+    it('uses hover CSS classes for non-touch devices', () => {
+      render(<CharacterCard {...defaultProps} />);
+      
+      const cardContainer = screen.getByText(mockCharacter.name).closest('.perspective-1000');
+      expect(cardContainer).toBeInTheDocument();
+      
+      if (cardContainer) {
+        // Should not have touch-device class
+        expect(cardContainer).not.toHaveClass('touch-device');
+        
+        // Should have hover class for desktop
+        const flipContainer = cardContainer.querySelector('.preserve-3d');
+        expect(flipContainer).toHaveClass('group-hover:rotate-y-180');
+        expect(flipContainer).not.toHaveClass('rotate-y-180');
+      }
+    });
+
+    it('shows desktop text in back side', () => {
+      render(<CharacterCard {...defaultProps} />);
+      
+      expect(screen.getByText('Click to view more details')).toBeInTheDocument();
+    });
+
+    it('does not respond to touch events on non-touch devices', () => {
+      render(<CharacterCard {...defaultProps} />);
+      
+      const cardContainer = screen.getByText(mockCharacter.name).closest('.perspective-1000');
+      
+      if (cardContainer) {
+        const flipContainer = cardContainer.querySelector('.preserve-3d');
+        
+        // Touch events should not affect the flip state on non-touch devices
+        act(() => {
+          fireEvent.touchStart(cardContainer);
+        });
+        
+        // Should still only have hover class, not manual flip
+        expect(flipContainer).toHaveClass('group-hover:rotate-y-180');
+        expect(flipContainer).not.toHaveClass('rotate-y-180');
+      }
+    });
+  });
+
+  describe('Touch device functionality', () => {
+    beforeEach(() => {
+      // Mock touch device detection
+      Object.defineProperty(window, 'ontouchstart', {
+        writable: true,
+        value: true,
+      });
+      Object.defineProperty(navigator, 'maxTouchPoints', {
+        writable: true,
+        value: 5,
+      });
+    });
+
+    afterEach(() => {
+      // Clean up mocks
+      delete (window as unknown as { ontouchstart?: unknown }).ontouchstart;
+      Object.defineProperty(navigator, 'maxTouchPoints', {
+        writable: true,
+        value: 0,
+      });
+    });
+
+    it('detects touch device and applies touch-device class', () => {
+      render(<CharacterCard {...defaultProps} />);
+      
+      // Check that the card container has the touch-device class
+      const cardContainer = screen.getByText(mockCharacter.name).closest('.touch-device');
+      expect(cardContainer).toBeInTheDocument();
+    });
+
+    it('handles touch start to show flip and touch end to hide flip (hover-like behavior)', async () => {
+      jest.useFakeTimers();
+      
+      render(<CharacterCard {...defaultProps} />);
+      
+      const cardContainer = screen.getByText(mockCharacter.name).closest('.perspective-1000');
+      expect(cardContainer).toBeInTheDocument();
+      
+      if (cardContainer) {
+        // Initial state should not have flip class
+        const flipContainer = cardContainer.querySelector('.preserve-3d');
+        expect(flipContainer).not.toHaveClass('rotate-y-180');
+        
+        // Touch start should show flip (like hover start)
+        act(() => {
+          fireEvent.touchStart(cardContainer);
+        });
+        expect(flipContainer).toHaveClass('rotate-y-180');
+        
+        // Touch end should hide flip after delay (like hover end)
+        act(() => {
+          fireEvent.touchEnd(cardContainer);
+        });
+        
+        // The flip should still be visible before the timeout
+        expect(flipContainer).toHaveClass('rotate-y-180');
+        
+        // Fast-forward the timeout
+        act(() => {
+          jest.advanceTimersByTime(150);
+        });
+        
+        expect(flipContainer).not.toHaveClass('rotate-y-180');
+      }
+      
+      jest.useRealTimers();
+    });
+
+    it('handles touch cancel to hide flip immediately', () => {
+      render(<CharacterCard {...defaultProps} />);
+      
+      const cardContainer = screen.getByText(mockCharacter.name).closest('.perspective-1000');
+      
+      if (cardContainer) {
+        const flipContainer = cardContainer.querySelector('.preserve-3d');
+        
+        // Touch start should show flip
+        act(() => {
+          fireEvent.touchStart(cardContainer);
+        });
+        expect(flipContainer).toHaveClass('rotate-y-180');
+        
+        // Touch cancel should hide flip immediately
+        act(() => {
+          fireEvent.touchCancel(cardContainer);
+        });
+        expect(flipContainer).not.toHaveClass('rotate-y-180');
+      }
+    });
+
+    it('shows correct text for touch devices in back side', () => {
+      render(<CharacterCard {...defaultProps} />);
+      
+      expect(screen.getByText('Tap to view details')).toBeInTheDocument();
+    });
+
+    it('allows normal navigation on tap without preventing default', () => {
+      render(<CharacterCard {...defaultProps} />);
+      
+      const cardContainer = screen.getByText(mockCharacter.name).closest('.perspective-1000');
+      const link = screen.getAllByRole('link')[0];
+      
+      // Links should work normally - no preventDefault behavior
+      expect(cardContainer).toBeInTheDocument();
+      expect(link).toHaveAttribute('href', `/characters/${mockCharacter.id}`);
+    });
+
+    it('handles favorite button touch events correctly', () => {
+      render(<CharacterCard {...defaultProps} />);
+      
+      const favoriteButtons = screen.getAllByRole('button', { name: /add to favorites/i });
+      
+      // Simulate touch end event  
+      fireEvent.touchEnd(favoriteButtons[0]);
+      
+      expect(defaultProps.onFavoriteToggle).toHaveBeenCalledWith(mockCharacter.id);
+    });
   });
 }); 

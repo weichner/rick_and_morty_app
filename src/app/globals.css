@@ -151,6 +151,33 @@ body {
   transform: rotateY(180deg);
 }
 
+/* Touch device improvements */
+.touch-device {
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.touch-device button {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Ensure hover works properly on desktop and touch interactions on mobile */
+@media (hover: hover) and (pointer: fine) {
+  /* Desktop/mouse devices - ensure hover works */
+  .group:hover .group-hover\:rotate-y-180 {
+    transform: rotateY(180deg) !important;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  /* Touch devices - disable hover and rely on touch events */
+  .group:hover .group-hover\:rotate-y-180 {
+    transform: none !important;
+  }
+}
+
 /* Floating animations for particles */
 @keyframes float-slow {
   0%, 100% { 

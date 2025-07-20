@@ -27,6 +27,8 @@ export const CharacterImage: React.FC<CharacterImageProps> = ({
         alt={alt}
         fill
         className="object-cover"
+        placeholder="blur"
+        blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkrHB/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAhEQACAQIEBwAAAAAAAAAAAAABAgADBAUREiEiMUFRgf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyiwjA4YTWuUOjNk4kMnCHfLx2pBybnqRr6fAB8BSgUgX5/LhRrPqz61l1cTZMGiE3LXMXH5LrLz9gfWj6tNqG4oSFdKYo1GKKbg9nR4bgdL2/sVlO9jHGdDXPNqyPUQ3M8ZIHgXsOqHgH0eHr3M/bnyLhc3PQH9nR4//Z"
         sizes={
           size === "full"
             ? "(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 20vw"
